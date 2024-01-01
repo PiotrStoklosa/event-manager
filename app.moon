@@ -1,5 +1,11 @@
 lapis = require "lapis"
 import respond_to from require "lapis.application"
+import json_params from require "lapis.application"
+
+import Model from require "lapis.db.model"
+
+class Events extends Model
+  @primary_key: "event_id"
 
 class App extends lapis.Application
   [index: "/"]: =>
@@ -19,28 +25,24 @@ class App extends lapis.Application
 
   [manage_events: "/api/events"]: respond_to {
     GET: => 
-      @html ->
-        h1  'GET'
+      json: Events\select!
 
-    POST: =>
-      @html ->
-        h1  'POST'
-
-    PUT: =>
-      @html ->
-        h1  'PUT'
+    POST: json_params =>
+      json: Events\create @params
   }
 
-  [manage_events_by_id: "/api/events/:eventID"]: respond_to {
+  [manage_events_by_id: "/api/events/:event_id"]: respond_to {
+    before: =>
+        @user_id =  @params.event_id
     GET: => 
-      @html ->
-        h1  'GET' .. ' ' .. @params.eventID
+      json: Events\find @user_id
 
-    PUT: =>
-      @html ->
-        h1  'PUT' .. ' ' .. @params.eventID
+    PUT: json_params =>
+      event = Events\find @user_id
+      json: event\update @params
 
     DELETE: =>
-      @html ->
-        h1  'DELETE' .. ' ' .. @params.eventID
+      event = Events\find @user_id
+      json: event\delete!
+
   }
