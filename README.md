@@ -1,4 +1,4 @@
-Welcome to the event manager API! 
+# Welcome to the event manager API! 
 
 ## How to set up and run this app locally
 
