@@ -17,10 +17,12 @@ class App extends lapis.Application
       h4    '"place": "<place of the event>",'
       h4    '"date": "<date in YYYY-MM-DD format>",'
       h4    '"description": "<short description>"'
+      h4    '"category": "<category, e.g. concert>"'
       h4 '}'
       h4 'To read one event by id send GET request to the /api/events/{eventID}'
       h4 'To read all events send GET request to the /api/events'
-      h4 'To update an event send PUT request to the /api/events/{eventID}'
+      h4 'To read all events from one category send GET request to the /api/events/category{categpryName}'
+      h4 'To update an event send PUT request with updated event body to the /api/events/{eventID}'
       h4 'To delete an event send DELETE request to the /api/events/{eventID}'
 
   [manage_events: "/api/events"]: respond_to {
@@ -29,6 +31,11 @@ class App extends lapis.Application
 
     POST: json_params =>
       json: Events\create @params
+  }
+
+  [manage_events_category: "/api/events/category/:category_name"]: respond_to {
+    GET: => 
+      json: Events\select "where category = ?", @params.category_name
   }
 
   [manage_events_by_id: "/api/events/:event_id"]: respond_to {
