@@ -9,8 +9,8 @@
 6. Create table events ```CREATE TABLE events (event_id INT AUTO_INCREMENT PRIMARY KEY, name VARCHAR(255) NOT NULL, place VARCHAR(255) NOT NULL, date VARCHAR(10) NOT NULL, description TEXT NOT NULL, category VARCHAR(255) NOT NULL);```
 8. Download the application using ```git clone https://github.com/PiotrStoklosa/event-manager```
 9. Go to the project source code ```cd event-manager```
-10. Compile moonscript code to lua ```moonc *.moon```
-11. Run lapis server ```lapis server```
+10. Compile MoonScript code to Lua ```moonc *.moon```
+11. Run Lapis server ```lapis server```
 
 ## Usage
 
